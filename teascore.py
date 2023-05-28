@@ -1,5 +1,20 @@
 import streamlit as st
 
+flavor_attributes = {
+    'Sweetness': ['Honey', 'Sugar', 'Caramel', 'Maple Syrup'],
+    'Bitterness': ['Dark Chocolate', 'Coffee', 'Grapefruit Peel', 'Black Walnut'],
+    'Astringency': ['Green Apple', 'Black Tea', 'Cranberry', 'Unripe Persimmon'],
+    'Floral': ['Rose', 'Jasmine', 'Lavender', 'Honeysuckle'],
+    'Fruity': ['Berry', 'Citrus', 'Tropical', 'Stone Fruit'],
+    'Earthy': ['Mushroom', 'Forest Floor', 'Damp Earth', 'Wet Leaves'],
+    'Herbal': ['Mint', 'Basil', 'Thyme', 'Eucalyptus'],
+    'Spicy': ['Cinnamon', 'Ginger', 'Cloves', 'Peppercorn'],
+    'Vegetal': ['Grass', 'Seaweed', 'Artichoke', 'Fresh Herbs'],
+    'Nutty': ['Almond', 'Peanut', 'Hazelnut', 'Cashew'],
+    'Woody': ['Cedar', 'Oak', 'Pine', 'Sandalwood'],
+    'Other': ['Biscuit', 'Molasses', 'Tobacco', 'Leather']
+}
+
 def main():
     st.title('Tea Tasting Score Sheet')
 
@@ -8,12 +23,12 @@ def main():
     tea_name = st.text_input('Tea Name')
 
     st.header('Dry Leaf Evaluation')
-    dry_leaf_appearance = st.text_input('Appearance')
-    dry_leaf_aroma = st.text_input('Aroma')
+    dry_leaf_appearance = st.text_input('Dry Appearance')
+    dry_leaf_aroma = st.text_input('Dry Aroma')
 
     st.header('Wet Leaf Evaluation')
-    wet_leaf_appearance = st.text_input('Appearance')
-    wet_leaf_aroma = st.text_input('Aroma')
+    wet_leaf_appearance = st.text_input('Wet Appearance')
+    wet_leaf_aroma = st.text_input('Wet Aroma')
 
     st.header('Liquor Evaluation')
     liquor_appearance = st.text_input('Appearance (Color, Clarity)')
@@ -21,7 +36,7 @@ def main():
     body = st.text_input('Body (Viscosity, Weight)')
     overall_flavor = st.text_input('Flavor (Overall)')
 
-    st.header('Flavor Attributes')
+    st.header('Flavor Intensity')
     sweetness = st.number_input('Sweetness', min_value=1, max_value=10)
     bitterness = st.number_input('Bitterness', min_value=1, max_value=10)
     astringency = st.number_input('Astringency', min_value=1, max_value=10)
@@ -33,7 +48,17 @@ def main():
     vegetal = st.number_input('Vegetal', min_value=1, max_value=10)
     nutty = st.number_input('Nutty', min_value=1, max_value=10)
     woody = st.number_input('Woody', min_value=1, max_value=10)
-    other = st.text_input('Other')
+
+    selected_flavors = {}
+
+    st.title('Flavour Attributes')
+
+    for attribute, options in flavor_attributes.items():
+        selected = st.multiselect(attribute, options)
+        selected_flavors[attribute] = selected
+
+    st.title('Selected Flavors')
+    st.write(selected_flavors)
 
     st.header('Aftertaste')
     aftertaste_duration = st.text_input('Duration')
