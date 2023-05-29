@@ -1,126 +1,12 @@
 import streamlit as st
 import pytz
+from src.dataloader.load import json_load
 
-flavor_wheel = {
-    'Sweetness': ['Honey', 'Caramel', 'Sugar', 'Maple Syrup', 'Marshmallow', 'Agave'],
-    'Bitterness': ['Dark Chocolate', 'Coffee', 'Gentian', 'Quinine', 'Grapefruit Peel', 'Black Walnut'],
-    'Astringency': ['Pomegranate', 'Cranberry', 'Green Banana', 'Grape Skin', 'Black Tea', 'Walnut Skin'],
-    'Floral': ['Jasmine', 'Rose', 'Lavender', 'Chamomile', 'Osmanthus', 'Honeysuckle'],
-    'Fruity': ['Citrus', 'Berry', 'Stone Fruit', 'Tropical Fruit', 'Apple', 'Mango'],
-    'Earthy': ['Mushroom', 'Forest Floor', 'Damp Earth', 'Wet Leaves', 'Roasted Beet', 'Oak Moss'],
-    'Herbal': ['Mint', 'Basil', 'Thyme', 'Eucalyptus', 'Sage', 'Lemongrass'],
-    'Spicy': ['Cinnamon', 'Ginger', 'Cloves', 'Peppercorn', 'Cardamom', 'Nutmeg'],
-    'Vegetal': ['Grass', 'Seaweed', 'Artichoke', 'Fresh Herbs', 'Green Bell Pepper', 'Snow Pea'],
-    'Nutty': ['Almond', 'Peanut', 'Hazelnut', 'Cashew', 'Pistachio', 'Walnut'],
-    'Woody': ['Cedar', 'Oak', 'Pine', 'Sandalwood', 'Cypress', 'Mahogany'],
-    'Other': ['Biscuit', 'Molasses', 'Tobacco', 'Leather', 'Burnt Sugar', 'Toasted Sesame']
-}
-dry_leaf_appearance_attributes = [
-    'Twisted',
-    'Curled',
-    'Rolled',
-    'Tightly Rolled',
-    'Loosely Rolled',
-    'Long and Thin',
-    'Short and Stout',
-    'Needle-like',
-    'Balled',
-    'Wiry',
-    'Flat',
-    'Fluffy',
-    'Spiral',
-    'Spear-shaped',
-    'Unfolded',
-    'Crushed',
-    'Whole',
-    'Broken',
-    'Tippy',
-    'Golden',
-    'Silver',
-    'Green',
-    'Black',
-    'Brown',
-    'Mixed Colors',
-    'Mottled',
-    'Even',
-    'Uneven',
-    'Uniform',
-    'Assorted Sizes',
-    'Homogeneous',
-    'Delicate',
-    'Crinkled',
-    'Tangled',
-    'Lustrous',
-    'Dull',
-    'Brittle',
-    'Dry',
-    'Moist',
-    'Tender',
-    'Stiff',
-    'Pristine',
-    'Clean',
-    'Dirty',
-    'Speckled',
-    'Speck-free',
-]
+flavor_wheel = json_load('conf/flavour_wheel.json')
 
-wet_leaf_appearance_attributes = [
-    'Expanded',
-    'Unfurled',
-    'Plumped',
-    'Soft',
-    'Tender',
-    'Supple',
-    'Limp',
-    'Glossy',
-    'Shiny',
-    'Bright',
-    'Dull',
-    'Wilted',
-    'Soggy',
-    'Evenly Wet',
-    'Partially Wet',
-    'Waterlogged',
-    'Dripping',
-    'Steamed',
-    'Steeped',
-    'Infused',
-    'Saturated',
-    'Bright Green',
-    'Dark Green',
-    'Olive Green',
-    'Brown',
-    'Black',
-    'Red',
-    'Mixed Colors',
-    'Uniform',
-    'Mottled',
-    'Strands',
-    'Leaves',
-    'Buds',
-    'Tendrils',
-    'Stalks',
-    'Sprouts',
-    'Veins',
-    'Separated',
-    'Clumped',
-    'Delicate',
-    'Fragile',
-    'Intact',
-    'Shredded',
-    'Bruised',
-    'Mangled',
-    'Torn',
-    'Infusion Color',
-    'Transparent',
-    'Opaque',
-    'Clear',
-    'Cloudy',
-    'Filtered',
-    'Unfiltered',
-    'Visibly Extracted',
-    'Well-Steeped',
-]
+dry_leaf_appearance_attributes = json_load('conf/dry_appearance.json')
+
+wet_leaf_appearance_attributes = json_load('conf/wet_appearance.json')
 
 color = ['Pale Yellow / Green', 'Green', 'Yellow', 'Orange', 'Red', 'Brown']
 clarity = ['Clear', 'Dark', 'Murky']
@@ -128,17 +14,8 @@ texture = ['Heavy', 'Metallic', 'Thick', 'Creamy', 'Full', 'Empty', 'Bright', 'S
 after_quality = ['Clean', 'Lingering', 'Empty']
 country = list(pytz.country_names.values())
 country.insert(0, 'N/A')
-types = [
-    'Black Tea',
-    'Green Tea',
-    'Purple Tea',
-    'White Tea',
-    'Yellow Tea',
-    'Oolong Tea',
-    'Pu-erh Tea',
-    'Dark / Post-Fermented Tea',
-    'Tisane / Infusion',
-    'Blend']
+types = json_load('conf/tea_types.json')
+
 
 def main():
     st.title('Tea Tasting Score Sheet')
