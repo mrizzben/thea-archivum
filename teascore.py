@@ -15,10 +15,10 @@ flavor_wheel = {
     'Other': ['Biscuit', 'Molasses', 'Tobacco', 'Leather', 'Burnt Sugar', 'Toasted Sesame']
 }
 
-color = ['Pale/White', 'Light Green', 'Yellow', 'Orange', 'Brown', 'Dark Red']
+color = ['Pale Yellow / Green', 'Green', 'Yellow', 'Orange', 'Red', 'Brown']
 clarity = ['Clear', 'Dark', 'Murky']
-texture = ['Heavy', 'Metallic', 'Thick', 'Creamy', 'Full', 'Empty', 'Bright', 'Soft', 'Light']
-
+texture = ['Heavy', 'Metallic', 'Thick', 'Creamy', 'Full', 'Empty', 'Bright', 'Soft', 'Light', 'Mediums']
+after_quality = ['Clean', 'Lingering', 'Empty']
 
 def main():
     st.title('Tea Tasting Score Sheet')
@@ -42,23 +42,25 @@ def main():
     st.header('Liquor Evaluation')
     liquor_color = st.select_slider('Liqour Color', color)
     liqour_clarity = st.radio('Liqour Clarity', clarity)
-    liquor_intensity = st.slider('Aroma Intensity', 1, 5)
+    liquor_intensity = st.number_input('Aroma Intensity', 1, 5)
     liqour_body = st.multiselect('Body (Viscosity, Weight)', texture)
 
     st.header('Flavor Intensity')
+    st.write('1: Muted / None - 5 : Very Intense')
     with st.container():
         col1, col2, col3 = st.columns(3)
-        sweetness = col1.number_input('Sweetness', min_value=1, max_value=10)
-        bitterness = col2.number_input('Bitterness', min_value=1, max_value=10)
-        astringency = col3.number_input('Astringency', min_value=1, max_value=10)
-        floral = col1.number_input('Floral', min_value=1, max_value=10)
-        fruity = col2.number_input('Fruity', min_value=1, max_value=10)
-        earthy = col3.number_input('Earthy', min_value=1, max_value=10)
-        herbal = col1.number_input('Herbal', min_value=1, max_value=10)
-        spicy = col2.number_input('Spicy', min_value=1, max_value=10)
-        vegetal = col3.number_input('Vegetal', min_value=1, max_value=10)
-        nutty = col1.number_input('Nutty', min_value=1, max_value=10)
-        woody = col2.number_input('Woody', min_value=1, max_value=10)
+        sweetness = col1.number_input('Sweetness', min_value=1, max_value=5)
+        bitterness = col2.number_input('Bitterness', min_value=1, max_value=5)
+        astringency = col3.number_input('Astringency', min_value=1, max_value=5)
+        floral = col1.number_input('Floral', min_value=1, max_value=5)
+        fruity = col2.number_input('Fruity', min_value=1, max_value=5)
+        earthy = col3.number_input('Earthy', min_value=1, max_value=5)
+        herbal = col1.number_input('Herbal', min_value=1, max_value=5)
+        spicy = col2.number_input('Spicy', min_value=1, max_value=5)
+        vegetal = col3.number_input('Vegetal', min_value=1, max_value=5)
+        nutty = col1.number_input('Nutty', min_value=1, max_value=5)
+        woody = col2.number_input('Woody', min_value=1, max_value=5)
+        umami = col3.number_input('Umami', min_value=1, max_value=5)
 
     selected_flavors = {}
 
@@ -72,14 +74,21 @@ def main():
     st.write(selected_flavors)
 
     st.header('Aftertaste')
-    aftertaste_duration = st.text_input('Duration')
-    aftertaste_quality = st.text_input('Quality')
+    with st.container():
+        col1, col2 = st.columns(2)
+        aftertaste_duration = col1.number_input('Duration', 1, 5)
+        col1.write('1 : None / Short - 5: Lingering / Very Long')
+        aftertaste_quality = col2.number_input('Quality', 1, 5)
+        col2.write('1 : Acceptable - 5 : Outstanding')
 
     st.header('Mouthfeel')
-    smoothness = st.text_input('Smoothness')
-    thickness = st.text_input('Thickness')
-    creaminess = st.text_input('Creaminess')
-    dryness = st.text_input('Dryness')
+    st.write('1: Muted / None - 5 : Very Intense')
+    with st.container():
+        col1, col2 = st.columns(2)
+        smoothness = col1.number_input('Smoothness', 1, 5)
+        thickness = col2.number_input('Thickness', 1, 5)
+        creaminess = col1.number_input('Creaminess', 1, 5)
+        dryness = col2.number_input('Dryness', 1, 5)
 
     st.header('Overall Evaluation')
     balance = st.text_input('Balance (Flavors, Aromas, and Body)')
