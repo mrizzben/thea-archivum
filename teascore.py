@@ -1,4 +1,5 @@
 import streamlit as st
+import plotly.express as px
 import pytz
 from src.dataloader.load import json_load
 
@@ -63,20 +64,31 @@ def main():
 
     st.subheader('Flavor Intensity')
     st.caption('0 : None - 1 : Muted - 2 : Slight - 3 : Mild - 4 : Intense - 5 : Very Intense')
+    flavour_intensity_dict = dict()
     with st.container():
         col1, col2, col3 = st.columns(3)
-        sweetness = col1.number_input('Sweetness', min_value=0, max_value=5)
-        bitterness = col2.number_input('Bitterness', min_value=0, max_value=5)
-        astringency = col3.number_input('Astringency', min_value=0, max_value=5)
-        floral = col1.number_input('Floral', min_value=0, max_value=5)
-        fruity = col2.number_input('Fruity', min_value=0, max_value=5)
-        earthy = col3.number_input('Earthy', min_value=0, max_value=5)
-        herbal = col1.number_input('Herbal', min_value=0, max_value=5)
-        spicy = col2.number_input('Spicy', min_value=0, max_value=5)
-        vegetal = col3.number_input('Vegetal', min_value=0, max_value=5)
-        nutty = col1.number_input('Nutty', min_value=0, max_value=5)
-        woody = col2.number_input('Woody', min_value=0, max_value=5)
-        umami = col3.number_input('Umami', min_value=0, max_value=5)
+        flavour_intensity_dict['sweetness'] = col1.number_input('Sweetness', min_value=0, max_value=5)
+        flavour_intensity_dict['bitterness'] = col2.number_input('Bitterness', min_value=0, max_value=5)
+        flavour_intensity_dict['astringency'] = col3.number_input('Astringency', min_value=0, max_value=5)
+        flavour_intensity_dict['floral'] = col1.number_input('Floral', min_value=0, max_value=5)
+        flavour_intensity_dict['fruity'] = col2.number_input('Fruity', min_value=0, max_value=5)
+        flavour_intensity_dict['earthy'] = col3.number_input('Earthy', min_value=0, max_value=5)
+        flavour_intensity_dict['herbal'] = col1.number_input('Herbal', min_value=0, max_value=5)
+        flavour_intensity_dict['spicy'] = col2.number_input('Spicy', min_value=0, max_value=5)
+        flavour_intensity_dict['vegetal'] = col3.number_input('Vegetal', min_value=0, max_value=5)
+        flavour_intensity_dict['nutty'] = col1.number_input('Nutty', min_value=0, max_value=5)
+        flavour_intensity_dict['woody'] = col2.number_input('Woody', min_value=0, max_value=5)
+        flavour_intensity_dict['umami'] = col3.number_input('Umami', min_value=0, max_value=5)
+    st.write("---")
+
+    with st.expander('Flavour Chart'):
+        fig = px.line_polar(
+            r=flavour_intensity_dict.values(), 
+            theta=flavour_intensity_dict.keys(), 
+            line_close=True
+        )
+        fig.update_traces(fill='toself')
+        st.plotly_chart(fig)
 
     selected_flavors = {}
 
@@ -89,9 +101,10 @@ def main():
     for i, (attribute, options) in enumerate(FLAVOR_WHEEL.items()):
         selected = columns[i % num_columns].multiselect(attribute, options, key=i)
         selected_flavors[attribute] = selected
-
-    st.subheader('Selected Flavors')
-    st.write(selected_flavors)
+    
+    if any(selected_flavors.values()):
+        st.subheader('Selected Flavors')
+        st.write(selected_flavors)
 
     st.subheader('Aftertaste')
     with st.container():
