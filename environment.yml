@@ -1,17 +1,21 @@
-name: tea-tasting
+name: tea-score-app
 channels:
+  - conda-forge
   - defaults
 dependencies:
   - abseil-cpp=20211102.0=he9d5cce_0
+  - altair=4.1.0=py_1
   - appnope=0.1.2=py39hecd8cb5_1001
   - arrow-cpp=11.0.0=py39h7f74497_0
   - asttokens=2.0.5=pyhd3eb1b0_0
+  - attrs=22.1.0=py39hecd8cb5_0
   - aws-c-common=0.4.57=hb1e8313_1
   - aws-c-event-stream=0.1.6=h23ab428_5
   - aws-checksums=0.1.9=hb1e8313_0
   - aws-sdk-cpp=1.8.185=he271ece_0
   - backcall=0.2.0=pyhd3eb1b0_0
   - blas=1.0=mkl
+  - blinker=1.4=py39hecd8cb5_0
   - boost-cpp=1.73.0=hca72f7f_12
   - bottleneck=1.3.5=py39h67323c0_0
   - brotli=1.0.9=hca72f7f_7
@@ -19,10 +23,11 @@ dependencies:
   - brotlipy=0.7.0=py39h9ed2024_1003
   - bzip2=1.0.8=h1de35cc_0
   - c-ares=1.19.0=h6c40b1e_0
-  - ca-certificates=2023.01.10=hecd8cb5_0
-  - certifi=2023.5.7=py39hecd8cb5_0
+  - ca-certificates=2023.5.7=h8857fd0_0
+  - cachetools=4.2.2=pyhd3eb1b0_0
+  - certifi=2023.5.7=pyhd8ed1ab_0
   - cffi=1.15.1=py39h6c40b1e_3
-  - chardet=4.0.0=py39hecd8cb5_1003
+  - charset-normalizer=2.0.4=pyhd3eb1b0_0
   - click=8.0.4=py39hecd8cb5_0
   - comm=0.1.2=py39hecd8cb5_0
   - cryptography=39.0.1=py39hf6deb26_0
@@ -30,7 +35,6 @@ dependencies:
   - decorator=5.1.1=pyhd3eb1b0_0
   - entrypoints=0.4=py39hecd8cb5_0
   - executing=0.8.3=pyhd3eb1b0_0
-  - flask=2.2.2=py39hecd8cb5_0
   - freetype=2.12.1=hd8bbffd_0
   - gflags=2.2.2=h0a44026_0
   - giflib=5.2.1=h6c40b1e_3
@@ -46,7 +50,6 @@ dependencies:
   - ipykernel=6.19.2=py39h01d92e1_0
   - ipython=8.12.0=py39hecd8cb5_0
   - ipywidgets=8.0.4=py39hecd8cb5_0
-  - itsdangerous=2.0.1=pyhd3eb1b0_0
   - jedi=0.18.1=py39hecd8cb5_1
   - jinja2=3.1.2=py39hecd8cb5_0
   - jpeg=9e=h6c40b1e_1
@@ -92,80 +95,68 @@ dependencies:
   - numexpr=2.8.4=py39h47b59a4_1
   - numpy=1.24.3=py39h47b59a4_1
   - numpy-base=1.24.3=py39hcfaf2c3_1
-  - openssl=1.1.1t=hca72f7f_0
+  - openssl=1.1.1t=hfd90126_0
   - orc=1.7.4=h995b336_1
+  - packaging=23.0=py39hecd8cb5_0
+  - pandas=1.5.3=py39h07fba90_0
   - parso=0.8.3=pyhd3eb1b0_0
   - pexpect=4.8.0=pyhd3eb1b0_3
   - pickleshare=0.7.5=pyhd3eb1b0_1003
+  - pillow=9.4.0=py39hcec6c5f_0
+  - pip=23.0.1=py39hecd8cb5_0
   - platformdirs=2.5.2=py39hecd8cb5_0
   - prompt-toolkit=3.0.36=py39hecd8cb5_0
+  - protobuf=3.20.3=py39hcec6c5f_0
   - psutil=5.9.0=py39hca72f7f_0
   - ptyprocess=0.7.0=pyhd3eb1b0_2
   - pure_eval=0.2.2=pyhd3eb1b0_0
   - pyarrow=11.0.0=py39h7122ad0_0
   - pycparser=2.21=pyhd3eb1b0_0
+  - pydeck=0.7.1=py39hecd8cb5_0
   - pygments=2.15.1=py39hecd8cb5_1
   - pympler=0.9=py_0
   - pyopenssl=23.0.0=py39hecd8cb5_0
+  - pyrsistent=0.18.0=py39hca72f7f_0
   - pysocks=1.7.1=py39hecd8cb5_0
   - python=3.9.16=h218abb5_2
   - python-dateutil=2.8.2=pyhd3eb1b0_0
+  - python_abi=3.9=2_cp39
+  - pytz=2022.7=py39hecd8cb5_0
+  - pyyaml=6.0=py39ha30fb19_5
   - pyzmq=25.0.2=py39hcec6c5f_0
   - re2=2022.04.01=he9d5cce_0
   - readline=8.2=hca72f7f_0
+  - requests=2.29.0=py39hecd8cb5_0
   - rich=13.3.5=py39hecd8cb5_0
   - semver=2.13.0=pyhd3eb1b0_0
+  - setuptools=66.0.0=py39hecd8cb5_0
   - six=1.16.0=pyhd3eb1b0_1
   - smmap=4.0.0=pyhd3eb1b0_0
   - snappy=1.1.9=he9d5cce_0
   - sqlite=3.41.2=h6c40b1e_0
   - stack_data=0.2.0=pyhd3eb1b0_0
+  - streamlit=1.22.0=pyhd8ed1ab_2
   - tbb=2021.8.0=ha357a0b_0
+  - tenacity=8.2.2=pyhd8ed1ab_0
   - tk=8.6.12=h5d9f67b_0
   - toml=0.10.2=pyhd3eb1b0_0
   - toolz=0.12.0=py39hecd8cb5_0
+  - tornado=6.2=py39hca72f7f_0
   - traitlets=5.7.1=py39hecd8cb5_0
   - typing_extensions=4.5.0=py39hecd8cb5_0
+  - tzdata=2023c=h04d1e81_0
+  - tzlocal=2.1=py39hecd8cb5_1
+  - urllib3=1.26.15=py39hecd8cb5_0
   - utf8proc=2.6.1=h9ed2024_0
+  - validators=0.18.2=pyhd3eb1b0_0
+  - watchdog=3.0.0=py39h82e4197_0
   - wcwidth=0.2.5=pyhd3eb1b0_0
-  - werkzeug=2.2.3=py39hecd8cb5_0
+  - wheel=0.38.4=py39hecd8cb5_0
   - widgetsnbextension=4.0.5=py39hecd8cb5_0
   - xz=5.4.2=h6c40b1e_0
+  - yaml=0.2.5=h0d85af4_2
   - zeromq=4.3.4=h23ab428_0
   - zipp=3.11.0=py39hecd8cb5_0
   - zlib=1.2.13=h4dc903c_0
   - zstd=1.5.5=hc035e20_0
-  - pip:
-      - altair==5.0.1
-      - astor==0.8.1
-      - attrs==23.1.0
-      - base58==2.1.1
-      - blinker==1.6.2
-      - boto3==1.26.142
-      - botocore==1.29.142
-      - cachetools==5.3.1
-      - charset-normalizer==3.1.0
-      - cmake==3.26.3
-      - enum-compat==0.0.3
-      - jmespath==1.0.1
-      - packaging==23.1
-      - pandas==2.0.1
-      - pillow==9.5.0
-      - pip==23.1.2
-      - protobuf==4.23.2
-      - pydeck==0.8.1b0
-      - pyrsistent==0.19.3
-      - pytz==2023.3
-      - requests==2.31.0
-      - s3transfer==0.6.1
-      - setuptools==67.8.0
-      - streamlit==0.62.0
-      - tornado==6.3.2
-      - typing-extensions==4.6.2
-      - tzdata==2023.3
-      - tzlocal==5.0.1
-      - urllib3==1.26.16
-      - validators==0.20.0
-      - watchdog==3.0.0
-      - wheel==0.40.0
-prefix: //anaconda3/envs/tea-tasting
+prefix: /Users/rizz/miniconda3/envs/tea-score-app
