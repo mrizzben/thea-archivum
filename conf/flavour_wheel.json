@@ -1,14 +1,14 @@
 {
-    "Sweetness": ["Honey", "Caramel", "Sugar", "Maple Syrup", "Marshmallow", "Agave"],
-    "Bitterness": ["Dark Chocolate", "Coffee", "Gentian", "Quinine", "Grapefruit Peel", "Black Walnut"],
-    "Astringency": ["Pomegranate", "Cranberry", "Green Banana", "Grape Skin", "Black Tea", "Walnut Skin"],
-    "Floral": ["Jasmine", "Rose", "Lavender", "Chamomile", "Osmanthus", "Honeysuckle"],
-    "Fruity": ["Citrus", "Berry", "Stone Fruit", "Tropical Fruit", "Apple", "Mango"],
-    "Earthy": ["Mushroom", "Forest Floor", "Damp Earth", "Wet Leaves", "Roasted Beet", "Oak Moss"],
-    "Herbal": ["Mint", "Basil", "Thyme", "Eucalyptus", "Sage", "Lemongrass"],
-    "Spicy": ["Cinnamon", "Ginger", "Cloves", "Peppercorn", "Cardamom", "Nutmeg"],
-    "Vegetal": ["Grass", "Seaweed", "Artichoke", "Fresh Herbs", "Green Bell Pepper", "Snow Pea"],
-    "Nutty": ["Almond", "Peanut", "Hazelnut", "Cashew", "Pistachio", "Walnut"],
-    "Woody": ["Cedar", "Oak", "Pine", "Sandalwood", "Cypress", "Mahogany"],
-    "Other": ["Biscuit", "Molasses", "Tobacco", "Leather", "Burnt Sugar", "Toasted Sesame"]
+    "Sweetness": ["Arenga Sugar", "Palm Sugar", "Coconut Sugar", "White Sugar", "Honey", "Brown Sugar"],
+    "Bitterness": ["Dark Chocolate", "Coffee", "Bitter Herbs", "Quinine", "Grapefruit Peel", "Sambiloto"],
+    "Astringency": ["Pomegranate", "Green Banana", "Tea Leaves", "Tamarind", "Tannic"],
+    "Floral": ["Jasmine", "Rose", "Pandan", "Chamomile", "Frangipani", "Hibiscus"],
+    "Fruity": ["Citrus", "Mango", "Papaya", "Durian", "Jackfruit", "Apple", "Berries"],
+    "Earthy": ["Mushroom", "Damp Soil", "Wet Leaves", "Tubers", "Bamboo Shoots", "Taro"],
+    "Herbal": ["Mint", "Basil", "Lemongrass", "Pennywort", "Galangal"],
+    "Spicy": ["Cinnamon", "Ginger", "Cloves", "Turmeric", "Cardamom", "Star Anise"],
+    "Vegetal": ["Pandan", "Lemongrass", "Kaffir Lime Leaf", "Thai Basil"],
+    "Nutty": ["Coconut", "Peanut", "Cashew", "Sesame", "Almond", "Macadamia"],
+    "Woody": ["Sandalwood", "Cedar", "Agarwood", "Pine", "Camphor"],
+    "Other": ["Toasted Rice", "Burnt Caramel", "Molasses", "Toasted Coconut", "Soy Sauce"]
 }
