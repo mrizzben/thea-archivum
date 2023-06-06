@@ -24,6 +24,7 @@ def main():
         date = col2.date_input('Date')
         tea_name = col1.text_input('Tea Name')
         tea_type = col2.selectbox('Tea Type', TYPES)
+        brew_temp = col1
         if tea_type == 'Black Tea':
             grade = st.selectbox('Pekoe Grades', PEKOE_GRADES, index=0)
         else:
@@ -144,10 +145,26 @@ def main():
     additional_notes = st.text_area('Additional Notes', height=200)
 
     if st.button('Submit'):
-        # Perform the necessary operations with the submitted data
-        # You can save the data to a file or a database, send it via email, etc.
-        # Add your desired logic here
-
+        # Append the submitted data to the DataFrame
+        global results_df
+        new_row = {'Taster Name': taster_name, 'Date': date, 'Tea Name': tea_name, 'Tea Type': tea_type,
+                   'Pekoe Grade': grade, 'Region': region, 'Area': area, 'Processor': processor,
+                   'Plantation': plantation, 'Distributor': distributor,
+                   'Dry Leaf Appearance': dry_leaf_appearance, 'Wet Leaf Appearance': wet_leaf_appearance,
+                   'Liquor Color': liquor_color, 'Liquor Clarity': liqour_clarity,
+                   'Aroma Intensity': liquor_intensity, 'Liquor Body': liqour_body,
+                   'Sweetness': flavour_intensity_dict['sweetness'], 'Bitterness': flavour_intensity_dict['bitterness'],
+                   'Astringency': flavour_intensity_dict['astringency'], 'Floral': flavour_intensity_dict['floral'],
+                   'Fruity': flavour_intensity_dict['fruity'], 'Earthy': flavour_intensity_dict['earthy'],
+                   'Herbal': flavour_intensity_dict['herbal'], 'Spicy': flavour_intensity_dict['spicy'],
+                   'Vegetal': flavour_intensity_dict['vegetal'], 'Nutty': flavour_intensity_dict['nutty'],
+                   'Woody': flavour_intensity_dict['woody'], 'Umami': flavour_intensity_dict['umami'],
+                   'Aftertaste Duration': aftertaste_duration, 'Aftertaste Quality': aftertaste_quality,
+                   'Smoothness': smoothness, 'Thickness': thickness, 'Creaminess': creaminess,
+                   'Dryness': dryness, 'Appearance': appearance, 'Quality': quality, 'Balance': balance,
+                   'Complexity': complexity, 'Cleanliness': cleanliness, 'Overall': overall,
+                   'Additional Notes': additional_notes}
+        results_df = results_df.append(new_row, ignore_index=True)
         st.success('Submission Received')
 
 if __name__ == '__main__':
