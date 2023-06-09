@@ -235,12 +235,10 @@ def main():
         df = pd.DataFrame([new_row])
         df.to_csv('results.csv', index=False, mode='a', header=False)
 
-    if not df.empty:
-        st.download_button('Download Results',
-                           file=df.to_csv(index=False),
-                           file_name=f'{taster_name}_results_{tea_name}_{date}.csv')
-
         st.success("Submission Received")
+        st.download_button('Download Results',
+                           data=df.to_csv(index=False),
+                           file_name=f'{taster_name}_results_{tea_name}_{date}.csv')
 
 if __name__ == "__main__":
     main()
