@@ -24,6 +24,7 @@ def main():
         col1, col2 = st.columns(2)
         taster_name = col1.text_input("Taster's Name")
         date = col2.date_input("Date")
+        date = date.strftime("%m/%d/%Y")
         tea_name = col1.text_input("Tea Name")
         tea_type = col2.selectbox("Tea Type", TYPES)
         brew_temp = col1.number_input('Brewing Temp', 50, 100)
@@ -174,7 +175,7 @@ def main():
         # Append the submitted data to the DataFrame
         new_row = {
             "Taster Name": taster_name,
-            "Date": date.strftime("%m/%d/%Y"),
+            "Date": date,
             "Tea Name": tea_name,
             "Tea Type": tea_type,
             "Pekoe Grade": grade,
@@ -233,6 +234,11 @@ def main():
         #     json.dump(new_row, output)
         df = pd.DataFrame([new_row])
         df.to_csv('results.csv', index=False, mode='a', header=False)
+
+    if not df.empty:
+        st.download_button('Download Results',
+                           file=df.to_csv(index=False),
+                           file_name=f'{taster_name}_results_{tea_name}_{date}.csv')
 
         st.success("Submission Received")
 
