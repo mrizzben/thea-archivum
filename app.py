@@ -2,6 +2,8 @@ import streamlit as st
 import plotly.express as px
 import pytz
 from src.dataloader.load import json_load
+import json
+import pandas as pd
 
 FLAVOR_WHEEL = json_load("conf/flavour_wheel.json")
 DRY_LEAF_ATTRS = json_load("conf/dry_appearance.json")
@@ -24,7 +26,7 @@ def main():
         date = col2.date_input("Date")
         tea_name = col1.text_input("Tea Name")
         tea_type = col2.selectbox("Tea Type", TYPES)
-        brew_temp = col1
+        brew_temp = col1.number_input('Brewing Temp', 50, 100)
         if tea_type == "Black Tea":
             grade = st.selectbox("Pekoe Grades", PEKOE_GRADES, index=0)
         else:
@@ -110,7 +112,7 @@ def main():
         fig.update_traces(fill="toself")
         st.plotly_chart(fig)
 
-    selected_flavors = {}
+    selected_flavours = {}
 
     st.subheader("Flavour Attributes")
     st.caption("You may choose more than one attribute per flavour profile")
@@ -120,11 +122,12 @@ def main():
     columns = st.columns(num_columns)
     for i, (attribute, options) in enumerate(FLAVOR_WHEEL.items()):
         selected = columns[i % num_columns].multiselect(attribute, options, key=i)
-        selected_flavors[attribute] = selected
+        key = str(attribute).lower()
+        selected_flavours[key] = selected
 
-    if any(selected_flavors.values()):
-        st.subheader("Selected Flavors")
-        st.write(selected_flavors)
+    if any(selected_flavours.values()):
+        st.subheader("Selected Flavours")
+        st.write(selected_flavours)
 
     st.subheader("Aftertaste")
     with st.container():
@@ -154,13 +157,13 @@ def main():
         appearance = col1.number_input("Appearance", 1, 5)
         col1.caption("Overall Appearance of the Tea")
         quality = col2.number_input("Quality", 1, 5)
-        col2.caption("Quality of Flavors, Aromas, and Body")
+        col2.caption("Quality of Flavours, Aromas, and Body")
         balance = col1.number_input("Balance", 1, 5)
-        col1.caption("Balance of Flavors, Aromas, and Body")
+        col1.caption("Balance of Flavours, Aromas, and Body")
         complexity = col2.number_input("Complexity", 1, 5)
-        col2.caption("Nuance of Flavors, Aromas, and Body")
+        col2.caption("Nuance of Flavours, Aromas, and Body")
         cleanliness = col3.number_input("Cleanliness", 1, 5)
-        col3.caption("Lack of Unpleasant Off-flavors")
+        col3.caption("Lack of Unpleasant Off-flavours")
         overall = col3.number_input("Overall", 1, 5)
         col3.caption("Overall Experience of the Tea")
 
@@ -169,10 +172,9 @@ def main():
 
     if st.button("Submit"):
         # Append the submitted data to the DataFrame
-        global results_df
         new_row = {
             "Taster Name": taster_name,
-            "Date": date,
+            "Date": date.strftime("%m/%d/%Y"),
             "Tea Name": tea_name,
             "Tea Type": tea_type,
             "Pekoe Grade": grade,
@@ -189,17 +191,29 @@ def main():
             "Aroma Intensity": liquor_intensity,
             "Liquor Body": liqour_body,
             "Sweetness": flavour_intensity_dict["sweetness"],
+            "Sweetness Attr": selected_flavours["sweetness"],
             "Bitterness": flavour_intensity_dict["bitterness"],
+            "Bitterness Attr": selected_flavours["bitterness"],
             "Astringency": flavour_intensity_dict["astringency"],
+            "Astringency Attr": selected_flavours["astringency"],
             "Floral": flavour_intensity_dict["floral"],
+            "Floral Attr": selected_flavours["floral"],
             "Fruity": flavour_intensity_dict["fruity"],
+            "Fruity Attr": selected_flavours["fruity"],
             "Earthy": flavour_intensity_dict["earthy"],
+            "Earthy Attr": selected_flavours["earthy"],
             "Herbal": flavour_intensity_dict["herbal"],
+            "Herbal Attr": selected_flavours["herbal"],
             "Spicy": flavour_intensity_dict["spicy"],
+            "Spicy Attr": selected_flavours["spicy"],
             "Vegetal": flavour_intensity_dict["vegetal"],
+            "Vegetal Attr": selected_flavours["vegetal"],
             "Nutty": flavour_intensity_dict["nutty"],
+            "Nutty Attr": selected_flavours["nutty"],
             "Woody": flavour_intensity_dict["woody"],
+            "Woody Attr": selected_flavours["woody"],
             "Umami": flavour_intensity_dict["umami"],
+            "Other Attr": selected_flavours["other"],
             "Aftertaste Duration": aftertaste_duration,
             "Aftertaste Quality": aftertaste_quality,
             "Smoothness": smoothness,
@@ -214,9 +228,13 @@ def main():
             "Overall": overall,
             "Additional Notes": additional_notes,
         }
-        results_df = results_df.append(new_row, ignore_index=True)
-        st.success("Submission Received")
+        # results_df = results_df.append(new_row, ignore_index=True)
+        # with open('results.json', 'w') as output:
+        #     json.dump(new_row, output)
+        df = pd.DataFrame([new_row])
+        df.to_csv('results.csv', index=False, mode='a', header=False)
 
+        st.success("Submission Received")
 
 if __name__ == "__main__":
     main()
