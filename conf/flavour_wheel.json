@@ -83,19 +83,20 @@
         "Pine",
         "Camphor"
     ],
-    "Other": [
+    "Umami": [
+        "Seaweed",
+        "Kluwak",
+        "Soy Sauce",
+        "Tempe",
+        "Mushroom",
+        "Petai", 
+        "Ebi"
+    ],
+    "Smokey": [
         "Toasted Rice",
         "Burnt Caramel",
         "Molasses",
         "Toasted Coconut",
-        "Soy Sauce"
-    ],
-    "Umami": [
-        "Seaweed",
-        "Kluwak",
-        "Miso",
-        "Tempe",
-        "Mushroom",
-        "Petai"
+        "Kretek"
     ]
 }
