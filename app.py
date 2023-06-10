@@ -3,6 +3,7 @@ import plotly.express as px
 import pytz
 from src.dataloader.load import json_load
 import json
+from itertools import chain
 import pandas as pd
 
 FLAVOR_WHEEL = json_load("conf/flavour_wheel.json")
@@ -214,6 +215,7 @@ def main():
             "Woody": flavour_intensity_dict["woody"],
             "Woody Attr": selected_flavours["woody"],
             "Umami": flavour_intensity_dict["umami"],
+            "Umami Attr": selected_flavours["umami"],
             "Other Attr": selected_flavours["other"],
             "Aftertaste Duration": aftertaste_duration,
             "Aftertaste Quality": aftertaste_quality,

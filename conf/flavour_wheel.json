@@ -1,14 +1,101 @@
 {
-    "Sweetness": ["Arenga Sugar", "Palm Sugar", "Coconut Sugar", "White Sugar", "Honey", "Brown Sugar"],
-    "Bitterness": ["Dark Chocolate", "Coffee", "Bitter Herbs", "Quinine", "Grapefruit Peel", "Sambiloto"],
-    "Astringency": ["Pomegranate", "Green Banana", "Tea Leaves", "Tamarind", "Tannic"],
-    "Floral": ["Jasmine", "Rose", "Pandan", "Chamomile", "Frangipani", "Hibiscus"],
-    "Fruity": ["Citrus", "Mango", "Papaya", "Durian", "Jackfruit", "Apple", "Berries"],
-    "Earthy": ["Mushroom", "Damp Soil", "Wet Leaves", "Tubers", "Bamboo Shoots", "Taro"],
-    "Herbal": ["Mint", "Basil", "Lemongrass", "Pennywort", "Galangal"],
-    "Spicy": ["Cinnamon", "Ginger", "Cloves", "Turmeric", "Cardamom", "Star Anise"],
-    "Vegetal": ["Pandan", "Lemongrass", "Kaffir Lime Leaf", "Thai Basil"],
-    "Nutty": ["Coconut", "Peanut", "Cashew", "Sesame", "Almond", "Macadamia"],
-    "Woody": ["Sandalwood", "Cedar", "Agarwood", "Pine", "Camphor"],
-    "Other": ["Toasted Rice", "Burnt Caramel", "Molasses", "Toasted Coconut", "Soy Sauce"]
+    "Sweetness": [
+        "Arenga Sugar",
+        "Palm Sugar",
+        "Coconut Sugar",
+        "White Sugar",
+        "Honey",
+        "Brown Sugar"
+    ],
+    "Bitterness": [
+        "Dark Chocolate",
+        "Coffee",
+        "Bitter Herbs",
+        "Quinine",
+        "Grapefruit Peel",
+        "Sambiloto"
+    ],
+    "Astringency": [
+        "Pomegranate",
+        "Green Banana",
+        "Tea Leaves",
+        "Tamarind",
+        "Tannic"
+    ],
+    "Floral": [
+        "Jasmine",
+        "Rose",
+        "Pandan",
+        "Chamomile",
+        "Frangipani",
+        "Hibiscus"
+    ],
+    "Fruity": [
+        "Citrus",
+        "Mango",
+        "Papaya",
+        "Durian",
+        "Jackfruit",
+        "Apple",
+        "Berries"
+    ],
+    "Earthy": [
+        "Mushroom",
+        "Damp Soil",
+        "Wet Leaves",
+        "Tubers",
+        "Bamboo Shoots",
+        "Taro"
+    ],
+    "Herbal": [
+        "Mint",
+        "Basil",
+        "Lemongrass",
+        "Pennywort",
+        "Galangal"
+    ],
+    "Spicy": [
+        "Cinnamon",
+        "Ginger",
+        "Cloves",
+        "Turmeric",
+        "Cardamom",
+        "Star Anise"
+    ],
+    "Vegetal": [
+        "Pandan",
+        "Lemongrass",
+        "Kaffir Lime Leaf",
+        "Thai Basil"
+    ],
+    "Nutty": [
+        "Coconut",
+        "Peanut",
+        "Cashew",
+        "Sesame",
+        "Almond",
+        "Macadamia"
+    ],
+    "Woody": [
+        "Sandalwood",
+        "Cedar",
+        "Agarwood",
+        "Pine",
+        "Camphor"
+    ],
+    "Other": [
+        "Toasted Rice",
+        "Burnt Caramel",
+        "Molasses",
+        "Toasted Coconut",
+        "Soy Sauce"
+    ],
+    "Umami": [
+        "Seaweed",
+        "Kombu",
+        "Miso",
+        "Soy Sauce",
+        "Mushroom",
+        "Fermented Tea"
+    ]
 }
