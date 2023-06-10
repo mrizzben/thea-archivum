@@ -234,7 +234,6 @@ def main():
         # results_df = results_df.append(new_row, ignore_index=True)
         # with open('results.json', 'w') as output:
         #     json.dump(new_row, output)
-        @st.cache_data
         df = pd.DataFrame([new_row])
         df.to_csv('results.csv', index=False, mode='a', header=False)
 
