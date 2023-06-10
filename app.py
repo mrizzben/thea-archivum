@@ -216,7 +216,7 @@ def main():
             "Woody Attr": selected_flavours["woody"],
             "Umami": flavour_intensity_dict["umami"],
             "Umami Attr": selected_flavours["umami"],
-            "Other Attr": selected_flavours["other"],
+            "Other Attr": selected_flavours["browning"],
             "Aftertaste Duration": aftertaste_duration,
             "Aftertaste Quality": aftertaste_quality,
             "Smoothness": smoothness,
@@ -234,6 +234,7 @@ def main():
         # results_df = results_df.append(new_row, ignore_index=True)
         # with open('results.json', 'w') as output:
         #     json.dump(new_row, output)
+        @st.cache_data
         df = pd.DataFrame([new_row])
         df.to_csv('results.csv', index=False, mode='a', header=False)
 
