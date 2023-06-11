@@ -22,6 +22,7 @@ def main():
     st.title("Tea Tasting Score Sheet")
 
     with st.container():
+        session = st.text_input('Tasting Session Code (optional)')
         col1, col2 = st.columns(2)
         taster_name = col1.text_input("Taster's Name")
         date = col2.date_input("Date")
@@ -175,6 +176,7 @@ def main():
     if st.button("Submit"):
         # Append the submitted data to the DataFrame
         new_row = {
+            "Session ID": session,
             "Taster Name": taster_name,
             "Date": date,
             "Tea Name": tea_name,
