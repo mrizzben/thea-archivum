@@ -22,14 +22,14 @@ def main():
     st.title("Tea Tasting Score Sheet")
 
     with st.container():
-        session = st.text_input('Tasting Session Code (optional)')
+        session = st.text_input("Tasting Session Code (optional)")
         col1, col2 = st.columns(2)
         taster_name = col1.text_input("Taster's Name")
         date = col2.date_input("Date")
         date = date.strftime("%m/%d/%Y")
         tea_name = col1.text_input("Tea Name")
         tea_type = col2.selectbox("Tea Type", TYPES)
-        brew_temp = col1.number_input('Brewing Temp', 50, 100)
+        brew_temp = col1.number_input("Brewing Temp", 50, 100)
         if tea_type == "Black Tea":
             grade = st.selectbox("Pekoe Grades", PEKOE_GRADES, index=0)
         else:
@@ -106,7 +106,7 @@ def main():
         )
     st.write("---")
 
-    with st.expander("Flavour Chart"):
+    with st.expander("Flavour Chart", expanded=True):
         fig = px.line_polar(
             r=flavour_intensity_dict.values(),
             theta=flavour_intensity_dict.keys(),
@@ -173,76 +173,89 @@ def main():
     st.header("Additional Notes")
     additional_notes = st.text_area("Additional Notes", height=200)
 
-    if st.button("Submit"):
-        # Append the submitted data to the DataFrame
-        new_row = {
-            "Session ID": session,
-            "Taster Name": taster_name,
-            "Date": date,
-            "Tea Name": tea_name,
-            "Tea Type": tea_type,
-            "Pekoe Grade": grade,
-            "Brew Temp": brew_temp,
-            "Region": region,
-            "Area": area,
-            "Processor": processor,
-            "Plantation": plantation,
-            "Distributor": distributor,
-            "Dry Leaf Appearance": dry_leaf_appearance,
-            "Wet Leaf Appearance": wet_leaf_appearance,
-            "Liquor Color": liquor_color,
-            "Liquor Clarity": liqour_clarity,
-            "Aroma Intensity": liquor_intensity,
-            "Liquor Body": liqour_body,
-            "Sweetness": flavour_intensity_dict["sweetness"],
-            "Sweetness Attr": selected_flavours["sweetness"],
-            "Bitterness": flavour_intensity_dict["bitterness"],
-            "Bitterness Attr": selected_flavours["bitterness"],
-            "Astringency": flavour_intensity_dict["astringency"],
-            "Astringency Attr": selected_flavours["astringency"],
-            "Floral": flavour_intensity_dict["floral"],
-            "Floral Attr": selected_flavours["floral"],
-            "Fruity": flavour_intensity_dict["fruity"],
-            "Fruity Attr": selected_flavours["fruity"],
-            "Earthy": flavour_intensity_dict["earthy"],
-            "Earthy Attr": selected_flavours["earthy"],
-            "Herbal": flavour_intensity_dict["herbal"],
-            "Herbal Attr": selected_flavours["herbal"],
-            "Spicy": flavour_intensity_dict["spicy"],
-            "Spicy Attr": selected_flavours["spicy"],
-            "Vegetal": flavour_intensity_dict["vegetal"],
-            "Vegetal Attr": selected_flavours["vegetal"],
-            "Nutty": flavour_intensity_dict["nutty"],
-            "Nutty Attr": selected_flavours["nutty"],
-            "Woody": flavour_intensity_dict["woody"],
-            "Woody Attr": selected_flavours["woody"],
-            "Umami": flavour_intensity_dict["umami"],
-            "Umami Attr": selected_flavours["umami"],
-            "Other Attr": selected_flavours["browning"],
-            "Aftertaste Duration": aftertaste_duration,
-            "Aftertaste Quality": aftertaste_quality,
-            "Smoothness": smoothness,
-            "Thickness": thickness,
-            "Creaminess": creaminess,
-            "Dryness": dryness,
-            "Appearance": appearance,
-            "Quality": quality,
-            "Balance": balance,
-            "Complexity": complexity,
-            "Cleanliness": cleanliness,
-            "Overall": overall,
-            "Additional Notes": additional_notes,
-        }
-        # results_df = results_df.append(new_row, ignore_index=True)
-        # with open('results.json', 'w') as output:
-        #     json.dump(new_row, output)
-        df = pd.DataFrame([new_row])
-        df.to_csv('results.csv', index=False, mode='a', header=False)
+    if tea_name and taster_name:
+        if st.button("Submit"):
+            # Append the submitted data to the DataFrame
+            new_row = {
+                "Session ID": session,
+                "Taster Name": taster_name,
+                "Date": date,
+                "Tea Name": tea_name,
+                "Tea Type": tea_type,
+                "Pekoe Grade": grade,
+                "Brew Temp": brew_temp,
+                "Region": region,
+                "Area": area,
+                "Processor": processor,
+                "Plantation": plantation,
+                "Distributor": distributor,
+                "Dry Leaf Appearance": dry_leaf_appearance,
+                "Wet Leaf Appearance": wet_leaf_appearance,
+                "Liquor Color": liquor_color,
+                "Liquor Clarity": liqour_clarity,
+                "Aroma Intensity": liquor_intensity,
+                "Liquor Body": liqour_body,
+                "Sweetness": flavour_intensity_dict["sweetness"],
+                "Sweetness Attr": selected_flavours["sweetness"],
+                "Bitterness": flavour_intensity_dict["bitterness"],
+                "Bitterness Attr": selected_flavours["bitterness"],
+                "Astringency": flavour_intensity_dict["astringency"],
+                "Astringency Attr": selected_flavours["astringency"],
+                "Floral": flavour_intensity_dict["floral"],
+                "Floral Attr": selected_flavours["floral"],
+                "Fruity": flavour_intensity_dict["fruity"],
+                "Fruity Attr": selected_flavours["fruity"],
+                "Earthy": flavour_intensity_dict["earthy"],
+                "Earthy Attr": selected_flavours["earthy"],
+                "Herbal": flavour_intensity_dict["herbal"],
+                "Herbal Attr": selected_flavours["herbal"],
+                "Spicy": flavour_intensity_dict["spicy"],
+                "Spicy Attr": selected_flavours["spicy"],
+                "Vegetal": flavour_intensity_dict["vegetal"],
+                "Vegetal Attr": selected_flavours["vegetal"],
+                "Nutty": flavour_intensity_dict["nutty"],
+                "Nutty Attr": selected_flavours["nutty"],
+                "Woody": flavour_intensity_dict["woody"],
+                "Woody Attr": selected_flavours["woody"],
+                "Umami": flavour_intensity_dict["umami"],
+                "Umami Attr": selected_flavours["umami"],
+                "Other Attr": selected_flavours["browning"],
+                "Aftertaste Duration": aftertaste_duration,
+                "Aftertaste Quality": aftertaste_quality,
+                "Smoothness": smoothness,
+                "Thickness": thickness,
+                "Creaminess": creaminess,
+                "Dryness": dryness,
+                "Appearance": appearance,
+                "Quality": quality,
+                "Balance": balance,
+                "Complexity": complexity,
+                "Cleanliness": cleanliness,
+                "Overall": overall,
+                "Additional Notes": additional_notes,
+            }
+            # results_df = results_df.append(new_row, ignore_index=True)
+            # with open('results.json', 'w') as output:
+            #     json.dump(new_row, output)
+            dataframe = pd.DataFrame([new_row])
+            st.session_state[taster_name + "_" + tea_name] = dataframe
+            st.session_state[
+                taster_name + "_" + tea_name + "_flavours"
+            ] = flavour_intensity_dict
+            dataframe.to_csv("results.csv", index=False, mode="a", header=False)
 
-        st.success("Submission Received")
-        st.download_button('Download Results',
-                           data=df.to_csv(index=False),
-                           file_name=f'{taster_name}_results_{tea_name}_{date}.csv')
+            st.success("Submission Received")
+            st.download_button(
+                "Download Results",
+                data=dataframe.to_csv(index=False),
+                file_name=f"{taster_name}_results_{tea_name}_{date}.csv",
+            )
+
+    else:
+        st.error(
+            "Tea Name and Taster Name have not been entered, you will not be able to save your score."
+        )
+
 
 if __name__ == "__main__":
     main()
