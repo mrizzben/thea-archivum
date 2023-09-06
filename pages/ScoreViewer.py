@@ -1,6 +1,7 @@
 import streamlit as st
 
-if st.session_state:
+if isinstance(st.session_state.keys(), str):
+    keys = [x for x in st.session_state.keys() if isinstance(x, str)]
     scoresheet = st.selectbox(
         "Which score sheet you would like to view?", st.session_state.keys()
     )
