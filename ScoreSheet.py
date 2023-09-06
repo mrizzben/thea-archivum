@@ -17,10 +17,12 @@ COLOR = ["Pale Yellow / Green", "Green", "Yellow", "Orange", "Red", "Brown"]
 CLARITY = ["Clear", "Dark", "Murky"]
 PEKOE_GRADES = json_load("conf/pekoe_grades.json")
 
+if "submission" not in st.session_state:
+    st.session_state.submission = {}
+
 
 def main():
     st.title("Tea Tasting Score Sheet")
-
     with st.container():
         session = st.text_input("Tasting Session Code (optional)")
         col1, col2 = st.columns(2)
@@ -175,6 +177,8 @@ def main():
 
     if tea_name and taster_name:
         if st.button("Submit"):
+            submission_name = tea_name + "_" + taster_name
+            st.session_state.submission[submission_name] = {}
             # Append the submitted data to the DataFrame
             new_row = {
                 "Session ID": session,
@@ -238,10 +242,9 @@ def main():
             # with open('results.json', 'w') as output:
             #     json.dump(new_row, output)
             dataframe = pd.DataFrame([new_row])
-            st.session_state[taster_name + "_" + tea_name] = dataframe
-            st.session_state[
-                taster_name + "_" + tea_name + "_flavours"
-            ] = flavour_intensity_dict
+            submission_dict = st.session_state.submission[submission_name]
+            submission_dict["scoresheet"] = dataframe
+            submission_dict["flavourwhl"] = flavour_intensity_dict
             dataframe.to_csv("results.csv", index=False, mode="a", header=False)
 
             st.success("Submission Received")
