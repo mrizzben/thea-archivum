@@ -1,6 +1,9 @@
 import streamlit as st
 import plotly.express as px
 
+if "submission" not in st.session_state:
+    st.session_state.submission = {}
+
 if st.session_state.submission:
     submissions = st.session_state.submission
     keys = submissions.keys()
