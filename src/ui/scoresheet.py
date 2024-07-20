@@ -39,7 +39,7 @@ def basic_details() -> Dict:
         "Plantation": plantation,
         "Distributor": distributor,
     }
-    return basic_details_dict
+    return basic_details_dict, tea_name, taster_name
 
 
 def flavour_intensity_sliders() -> Dict:
@@ -86,6 +86,7 @@ def flavour_intensity_sliders() -> Dict:
         flavour_intensity_dict["umami"] = col3.number_input(
             "Umami", min_value=0, max_value=5
         )
+    flavour_intensity_dict = {k.title(): v for k, v in flavour_intensity_dict.items()}
     return flavour_intensity_dict
 
 
@@ -117,3 +118,87 @@ def physical_details():
         "Liquor Body": liqour_body,
     }
     return physical_details_dict
+
+
+def flavour_attributes() -> Dict:
+    selected_flavours = {}
+
+    st.subheader("Flavour Attributes")
+    st.caption("You may choose more than one attribute per flavour profile")
+
+    num_columns = 2
+
+    columns = st.columns(num_columns)
+    for i, (attribute, options) in enumerate(FLAVOR_WHEEL.items()):
+        selected = columns[i % num_columns].multiselect(attribute, options, key=i)
+        key = str(attribute).title() + " Attributes"
+        selected_flavours[key] = selected
+
+    if any(selected_flavours.values()):
+        st.subheader("Selected Flavours")
+        st.write(selected_flavours)
+    return selected_flavours
+
+
+def texture_attributes():
+    st.subheader("Aftertaste")
+    with st.container():
+        col1, col2 = st.columns(2)
+        aftertaste_duration = col1.number_input("Aftertaste Duration", 1, 5)
+        col1.caption("1 : None / Very Short - 5: Lingering / Very Long")
+        aftertaste_quality = col2.number_input("Aftertaste Quality", 1, 5)
+        col2.caption("1 : Acceptable - 5 : Outstanding")
+
+    st.subheader("Mouthfeel")
+    st.caption(
+        "0 : None - 1 : Muted - 2 : Slight - 3 : Mild - 4 : Intense - 5 : Very Intense"
+    )
+    with st.container():
+        col1, col2 = st.columns(2)
+        smoothness = col1.number_input("Smoothness", 0, 5)
+        thickness = col2.number_input("Thickness", 0, 5)
+        creaminess = col1.number_input("Creaminess", 0, 5)
+        dryness = col2.number_input("Dryness", 0, 5)
+    texture_attributes_dict = {
+        "Aftertaste Duration": aftertaste_duration,
+        "Aftertaste Quality": aftertaste_quality,
+        "Smoothness": smoothness,
+        "Thickness": thickness,
+        "Creaminess": creaminess,
+        "Dryness": dryness,
+    }
+    return texture_attributes_dict
+
+
+def final_details():
+    st.header("Overall Evaluation")
+    st.caption(
+        "1 : Acceptable - 2 : Good - 3 : Very Good - 4 : Excellent - 5 : Outstanding"
+    )
+    with st.container():
+        col1, col2, col3 = st.columns(3)
+        appearance = col1.number_input("Appearance", 1, 5)
+        col1.caption("Overall Appearance of the Tea")
+        quality = col2.number_input("Quality", 1, 5)
+        col2.caption("Quality of Flavours, Aromas, and Body")
+        balance = col1.number_input("Balance", 1, 5)
+        col1.caption("Balance of Flavours, Aromas, and Body")
+        complexity = col2.number_input("Complexity", 1, 5)
+        col2.caption("Nuance of Flavours, Aromas, and Body")
+        cleanliness = col3.number_input("Cleanliness", 1, 5)
+        col3.caption("Lack of Unpleasant Off-flavours")
+        overall = col3.number_input("Overall", 1, 5)
+        col3.caption("Overall Experience of the Tea")
+
+    st.header("Additional Notes")
+    additional_notes = st.text_area("Additional Notes", height=200)
+    final_details_dict = {
+        "Appearance": appearance,
+        "Quality": quality,
+        "Balance": balance,
+        "Complexity": complexity,
+        "Cleanliness": cleanliness,
+        "Overall": overall,
+        "Additional Notes": additional_notes,
+    }
+    return final_details_dict
