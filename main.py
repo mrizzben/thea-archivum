@@ -1,21 +1,11 @@
 import streamlit as st
 import plotly.express as px
-import pytz
-from src.dataloader.load import json_load
-import json
 from itertools import chain
 import pandas as pd
 
-FLAVOR_WHEEL = json_load("conf/flavour_wheel.json")
-DRY_LEAF_ATTRS = json_load("conf/dry_appearance.json")
-WET_LEAF_ATTRS = json_load("conf/wet_appearance.json")
-TEXTURE = json_load("conf/texture.json")
-TYPES = json_load("conf/tea_types.json")
-COUNTRY = list(pytz.country_names.values())
-COUNTRY.insert(0, "N/A")
-COLOR = ["Pale Yellow / Green", "Green", "Yellow", "Orange", "Red", "Brown"]
-CLARITY = ["Clear", "Dark", "Murky"]
-PEKOE_GRADES = json_load("conf/pekoe_grades.json")
+from src.config import *
+from src.ui.scoresheet import *
+from src.visualise.mainsheet import *
 
 if "submission" not in st.session_state:
     st.session_state.submission = {}
@@ -23,100 +13,15 @@ if "submission" not in st.session_state:
 
 def main():
     st.title("Tea Tasting Score Sheet")
-    with st.container():
-        session = st.text_input("Tasting Session Code (optional)")
-        col1, col2 = st.columns(2)
-        taster_name = col1.text_input("Taster's Name")
-        date = col2.date_input("Date")
-        date = date.strftime("%m/%d/%Y")
-        tea_name = col1.text_input("Tea Name")
-        tea_type = col2.selectbox("Tea Type", TYPES)
-        brew_temp = col1.number_input("Brewing Temp", 50, 100)
-        if tea_type == "Black Tea":
-            grade = st.selectbox("Pekoe Grades", PEKOE_GRADES, index=0)
-        else:
-            grade = "N/A"
-
-    with st.expander("Add Further Details"):
-        region = st.selectbox("Country of Origin", COUNTRY)
-        area = st.text_input("Region / Area")
-        processor = st.text_input("Processor")
-        plantation = st.text_input("Plantation")
-        distributor = st.text_input("Distributor")
-
-    with st.container():
-        col1, col2 = st.columns(2)
-
-        col1.header("Dry Leaf Evaluation")
-        dry_leaf_appearance = col1.multiselect("Dry Appearance", DRY_LEAF_ATTRS)
-
-        col2.header("Wet Leaf Evaluation")
-        wet_leaf_appearance = col2.multiselect("Wet Appearance", WET_LEAF_ATTRS)
-
-    st.header("Liquor Evaluation")
-    liquor_color = st.radio("Liqour Color", COLOR, horizontal=True)
-    liqour_clarity = st.radio("Liqour Clarity", CLARITY, horizontal=True)
-    liquor_intensity = st.number_input("Aroma Intensity", 1, 5)
-    st.caption(
-        "0 : None - 1 : Muted - 2 : Slight - 3 : Mild - 4 : Intense - 5 : Very Intense"
-    )
-    liqour_body = st.multiselect("Body (Viscosity, Weight)", TEXTURE)
-    st.caption("You may choose more than one attributes")
-
-    st.subheader("Flavor Intensity")
-    st.caption(
-        "0 : None - 1 : Muted - 2 : Slight - 3 : Mild - 4 : Intense - 5 : Very Intense"
-    )
-    flavour_intensity_dict = dict()
-    with st.container():
-        col1, col2, col3 = st.columns(3)
-        flavour_intensity_dict["sweetness"] = col1.number_input(
-            "Sweetness", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["bitterness"] = col2.number_input(
-            "Bitterness", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["astringency"] = col3.number_input(
-            "Astringency", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["floral"] = col1.number_input(
-            "Floral", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["fruity"] = col2.number_input(
-            "Fruity", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["earthy"] = col3.number_input(
-            "Earthy", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["herbal"] = col1.number_input(
-            "Herbal", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["spicy"] = col2.number_input(
-            "Spicy", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["vegetal"] = col3.number_input(
-            "Vegetal", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["nutty"] = col1.number_input(
-            "Nutty", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["woody"] = col2.number_input(
-            "Woody", min_value=0, max_value=5
-        )
-        flavour_intensity_dict["umami"] = col3.number_input(
-            "Umami", min_value=0, max_value=5
-        )
+    form_results = []
+    basic_dict = basic_details()
+    form_results.append(basic_dict)
+    physical_dict = physical_details()
+    form_results.append(physical_dict)
+    flavour_intensity_dict = flavour_intensity_sliders()
+    form_results.append(flavour_intensity_dict)
     st.write("---")
-
-    with st.expander("Flavour Chart", expanded=True):
-        fig = px.line_polar(
-            r=flavour_intensity_dict.values(),
-            theta=flavour_intensity_dict.keys(),
-            line_close=True,
-        )
-        fig.update_traces(fill="toself")
-        st.plotly_chart(fig)
-
+    flavour_intensity_chart(flavour_intensity_dict)
     selected_flavours = {}
 
     st.subheader("Flavour Attributes")
@@ -181,24 +86,6 @@ def main():
             st.session_state.submission[submission_name] = {}
             # Append the submitted data to the DataFrame
             new_row = {
-                "Session ID": session,
-                "Taster Name": taster_name,
-                "Date": date,
-                "Tea Name": tea_name,
-                "Tea Type": tea_type,
-                "Pekoe Grade": grade,
-                "Brew Temp": brew_temp,
-                "Region": region,
-                "Area": area,
-                "Processor": processor,
-                "Plantation": plantation,
-                "Distributor": distributor,
-                "Dry Leaf Appearance": dry_leaf_appearance,
-                "Wet Leaf Appearance": wet_leaf_appearance,
-                "Liquor Color": liquor_color,
-                "Liquor Clarity": liqour_clarity,
-                "Aroma Intensity": liquor_intensity,
-                "Liquor Body": liqour_body,
                 "Sweetness": flavour_intensity_dict["sweetness"],
                 "Sweetness Attr": selected_flavours["sweetness"],
                 "Bitterness": flavour_intensity_dict["bitterness"],
